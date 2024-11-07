@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayrus HTML Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #000000; /* Latar belakang hitam */
+            color: #FFD700; /* Warna teks kuning */
+        }
+
+        h1 {
+            color: #FFD700; /* Warna teks kuning */
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            margin: 10px 0;
+            background-color: #333;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #000;
+            background-color: #FFD700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #FFB300;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            border: 1px solid #FFD700;
+            border-radius: 4px;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #222;
+            overflow: auto;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Kayrus HTML Viewer</h1>
+    <p>Pilih file HTML untuk ditampilkan:</p>
+    
+    <input type="file" id="fileInput" accept=".html">
+    <button onclick="displayHTML()">Tampilkan HTML</button>
+    
+    <!-- Container untuk menampilkan hasil HTML -->
+    <div class="container">
+        <iframe id="outputFrame"></iframe>
+    </div>
+
+    <script>
+        function displayHTML() {
+            const fileInput = document.getElementById('fileInput').files[0];
+            if (fileInput && fileInput.type === "text/html") {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const htmlContent = event.target.result;
+                    const iframe = document.getElementById('outputFrame').contentWindow.document;
+                    iframe.open();
+                    iframe.write(htmlContent);
+                    iframe.close();
+                };
+                reader.readAsText(fileInput);
+            } else {
+                alert("Silakan upload file HTML dengan ekstensi .html");
+            }
+        }
+    </script>
+
+</body>
+</html>
